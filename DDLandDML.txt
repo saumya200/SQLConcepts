@@ -1,0 +1,140 @@
+-----------------------------DDL (Data Definition Language) vs. DML (Data Manipulation Language) in SQL--------------------------------------
+
+SQL is divided into different categories, and DDL and DML are two of them.
+
+1️⃣ DDL (Data Definition Language)
+
+DDL is used to define, create, and modify the database schema (structure of tables, indexes, constraints, etc.).
+
+   -> It does not manipulate actual data, only the structure of the database.
+   -> Changes made using DDL are permanent (autocommit).
+
+--> Common DDL Commands:
+
+Command	           Description
+
+CREATE	     Creates a new database, table, or index.
+ALTER	     Modifies an existing table (add/remove columns, change data type, etc.).
+DROP	     Deletes a table, database, or index.
+TRUNCATE	 Removes all records from a table but keeps its structure.
+RENAME	     Renames a table or column.
+
+🔹 Example: Creating a table using DDL
+
+CREATE TABLE Employees (
+    ID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Salary DECIMAL(10,2)
+);
+
+🔹 Example: Modifying a table using DDL
+
+-> ALTER TABLE Employees ADD Age INT;  -- Adds a new column
+-> DROP TABLE Employees;  -- Deletes the table permanently
+
+
+2️⃣ DML (Data Manipulation Language)
+
+DML is used to manipulate and interact with the data inside tables.
+
+   -> It does not change the database structure, only the data.
+   -> DML operations can be rolled back (not autocommitted by default).
+
+Common DML Commands:
+
+Command	       Description
+
+SELECT	   Retrieves data from a table.
+INSERT	   Adds new records to a table.
+UPDATE	   Modifies existing records in a table.
+DELETE	   Removes specific records from a table.
+
+🔹 Example: Inserting data using DML
+
+INSERT INTO Employees (ID, Name, Salary) VALUES (1, 'Alice', 50000.00);
+
+🔹 Example: Updating data using DML
+
+UPDATE Employees SET Salary = 55000 WHERE ID = 1;
+
+🔹 Example: Deleting data using DML
+
+DELETE FROM Employees WHERE ID = 1;
+
+📌 Key Differences Between DDL and DML
+
+Feature	                        DDL (Data Definition Language)	                    DML (Data Manipulation Language)
+
+Purpose	                      Defines & modifies database structure	                 Manipulates data inside tables
+Commands	                     CREATE, ALTER, DROP, TRUNCATE	                      SELECT, INSERT, UPDATE, DELETE
+Affects Data?	                   No (only structure)	                                 Yes (actual records)
+Auto-commit?	                 Yes (changes are permanent)	                         No (can be rolled back)
+
+🔥 Quick Summary
+
+✅ DDL modifies database structure (tables, columns, constraints).
+✅ DML modifies data inside tables (insert, update, delete).
+✅ DDL is auto-committed, while DML can be rolled back using transactions.
+
+===========================================================================================================================================
+DDL vs. DML in Simple Terms
+
+Imagine a restaurant where you have a menu, tables, and food items. Think of SQL as the kitchen that manages everything!
+
+1️⃣ DDL (Data Definition Language) – "Setting Up the Restaurant"
+
+DDL is like setting up the restaurant itself. It decides what the tables, chairs, and menu will look like.
+
+💡 Think of DDL as the construction team:
+
+    CREATE – Building new tables and chairs
+    ALTER – Adding or removing chairs from a table
+    DROP – Destroying the entire table
+    TRUNCATE – Cleaning the table completely but keeping it
+
+🔹 Example:
+If a restaurant needs a new menu, they create it:
+
+CREATE TABLE Menu (ItemID INT, ItemName VARCHAR(50), Price DECIMAL(5,2));
+
+Once you change the structure, you can’t undo it easily!
+
+
+2️⃣ DML (Data Manipulation Language) – "Taking & Serving Orders"
+
+DML is like the waiters taking orders, serving food, and updating orders. It deals with the actual food (data), not the tables or restaurant 
+structure.
+
+💡 Think of DML as the waiter handling customer orders:
+
+    INSERT – Adding a new order to the table
+    UPDATE – Changing an existing order
+    DELETE – Removing an order
+
+🔹 Example:
+If a customer orders a burger, the waiter writes it down:
+
+INSERT INTO Menu (ItemID, ItemName, Price) VALUES (1, 'Burger', 5.99);
+
+If they change their mind and add extra cheese:
+
+UPDATE Menu SET Price = 6.99 WHERE ItemName = 'Burger';
+
+If they cancel the order:
+
+DELETE FROM Menu WHERE ItemName = 'Burger';
+
+🛑 Key Differences
+
+Feature                          	DDL (Setting Up the Restaurant)	                       DML (Taking & Changing Orders)
+
+What it does?	                  Changes the structure (tables, menu)	                 Changes the data (orders, prices)
+Commands	                         CREATE, ALTER, DROP, TRUNCATE	                       INSERT, UPDATE, DELETE, SELECT
+Can be undone?	                       No (permanent changes)	                                Yes (can use ROLLBACK)
+
+🎯 Quick Summary
+
+    DDL = Changing the restaurant setup (tables, chairs, menu design).
+    DML = Taking, updating, or cancelling customer orders (actual data inside tables).
+
+💡 DDL changes are permanent, while DML changes can be reversed!
