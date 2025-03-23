@@ -1,0 +1,50 @@
+---------------------------------------What is a self-join, and when would you use it?----------------------------------------------------
+
+What is a Self-Join?
+
+A self-join is a type of join where a table is joined with itself. This allows you to compare rows within the same table as if there were two different tables.
+
+🔹 It is usually performed using INNER JOIN or LEFT JOIN, and the table is aliased to distinguish between instances.
+When Would You Use a Self-Join?
+1. Finding Employees and Their Managers
+
+In an employee table where each employee has a manager_id, a self-join helps find who reports to whom.
+
+SELECT e1.name AS Employee, e2.name AS Manager
+FROM Employees e1
+JOIN Employees e2 ON e1.manager_id = e2.id;
+
+📌 Use Case: Organizational hierarchy lookup.
+2. Finding Duplicate Records Without DISTINCT
+
+Self-joins can help find duplicate records efficiently.
+
+SELECT a.*
+FROM Users a
+JOIN Users b 
+ON a.email = b.email AND a.id <> b.id;
+
+📌 Use Case: Detect duplicate users with the same email but different id.
+3. Finding Pairs of Related Data (e.g., Customers in the Same City)
+
+SELECT c1.name AS Customer1, c2.name AS Customer2, c1.city
+FROM Customers c1
+JOIN Customers c2 
+ON c1.city = c2.city AND c1.id < c2.id;
+
+📌 Use Case: Finding customers from the same city without duplicating pairs.
+4. Finding Consecutive Order Records
+
+If you want to check if a customer's order was placed on consecutive days:
+
+SELECT o1.order_id, o1.customer_id, o1.order_date, o2.order_date AS next_order_date
+FROM Orders o1
+JOIN Orders o2 
+ON o1.customer_id = o2.customer_id AND o2.order_date = o1.order_date + INTERVAL 1 DAY;
+
+📌 Use Case: Identifying customer engagement trends.
+Key Takeaways
+
+✅ A self-join is useful for comparing rows within the same table.
+✅ Use it for hierarchical relationships, duplicate detection, or sequence comparisons.
+✅ Always use table aliases (e1, e2, etc.) to avoid confusion.
